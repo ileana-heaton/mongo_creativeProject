@@ -1,0 +1,92 @@
+/* Remove margins and padding from the list */
+ul {
+    margin: 0;
+    padding: 0;
+  list-style-type: none;
+}
+ul li {
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
+}
+ul li:nth-child(odd) {
+    background: #f9f9f9;
+}
+.close {
+    position: absolute;
+    float: right;
+    right: 0;
+    top: 0;
+    padding: 16px 16px 16px 16px;
+}
+.close:hover {
+    color: red;
+}
+.songInfo{
+  font-size: 1.5em;
+}
+.songArtist{
+  font-style: italic;
+  color: gray;
+}
+
+body{
+  background-image: url("background_gradient.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.backgroundDiv {
+        margin: 1em 10em 1em 10em;
+        padding: 2em;
+        background-color: white;
+        opacity: 0.7;
+        border-radius: 25px;
+        /*position: fixed;*/
+    }
+
+.stretch {
+  width: 100%;
+  height: 100%;
+}
+
+.h1 {
+  margin: 0;
+}
+
+.songItem {
+  display: flex;
+  width: 100%;
+}
+.avatar {
+  width: 50px;
+}
+
+.list {
+  text-align: center;
+  list-style: none;
+}
+.albumArt{
+  width: 5em;  
+}
+.centeredDiv{
+  padding: 1em 1em;
+  text-align: left;
+}
+.albumArt, .centeredDiv{
+  cursor: pointer;
+}
+
+#chatBox{
+    width: 100%;
+    height: 300px;
+    overflow: auto;
+}
+
+/*.albumArt:hover, .centeredDiv:hover{*/
+/*  background-color: lightgray;*/
+/*}*/
+/*.songItem:hover { */
+/*    background-color: lightgray;*/
+/*}*/
