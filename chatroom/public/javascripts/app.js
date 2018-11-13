@@ -1,23 +1,35 @@
 /*global $*/
 
+
 $(document).ready(function() {
   
-  $("#chatBox").ready(function(e) {
-    var URL = "messages";
-    $.getJSON(URL, function(data) {
-      console.log(data);
-      var everything = "<ul>";
-      for(var message in data) {
-        var mess = data[message];
-        everything += "<li> <div><span style='font-weight:bold'>" + mess.Username + "</span><br> " + mess.Message + "<div></li>";
-      }
-      everything += "</ul>";
-      // console.log("everything: ", everything);
-      $("#chatBox").html(everything);
-      $('#chatBox').scrollTop($('#chatBox')[0].scrollHeight);
-    });
-  });
+  function refresh(){
+    // $("#chatBox").ready(function(e) {
+    // window.setInterval(function(){
+      /// call your function here
+      var URL = "messages";
+      $.getJSON(URL, function(data) {
+        console.log(data);
+        var everything = "<ul>";
+        for(var message in data) {
+          var mess = data[message];
+          everything += "<li> <div><span style='font-weight:bold'>" + mess.Username + "</span><br> " + mess.Message + "<div></li>";
+        }
+        everything += "</ul>";
+        // console.log("everything: ", everything);
+        $("#chatBox").html(everything);
+        $('#chatBox').scrollTop($('#chatBox')[0].scrollHeight);
+      });
+    // }, 5000);
+  // });
+  }
 
+  $("#chatBox").ready(function(e) {
+    refresh();
+    window.setInterval(function(){
+      refresh();
+    }, 1000);
+  });
   
   $("#sendButton").click(function(e) {
       if($("#Message").val().length){

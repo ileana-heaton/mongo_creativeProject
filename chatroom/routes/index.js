@@ -33,25 +33,24 @@ router.get('/', function(req, res) {
 /* POST */
 router.post('/messages', function(req, res, next) {
     console.log("/message POST Route");
-    console.log("req.body: ", req.body);
+    // console.log("req.body: ", req.body);
     // res.sendStatus(200);
     var newmessage = new Message(req.body); 
-    console.log("newMessage: ", newmessage); 
+    // console.log("newMessage: ", newmessage); 
     newmessage.save(function(err, post) { 
       if (err) return console.error(err);
       console.log("posted message: ", post);
-      
       res.sendStatus(200);
     });
 });
 
 /* GET messages from database */
 router.get('/messages', function(req, res, next) {
-  console.log("In the GET route");
+  // console.log("In the GET route");
   Message.find(function(err,messageList) { //Calls the find() method on your database
       if (err) return console.error(err); //If there's an error, print it out
       else {
-        console.log(messageList); //Otherwise console log the messages you found
+        // console.log(messageList); //Otherwise console log the messages you found
         res.json(messageList); //send messages back to the browser
       }
     });
