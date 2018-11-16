@@ -36,7 +36,7 @@ router.post('/messages', function(req, res, next) {
     // console.log("req.body: ", req.body);
     // res.sendStatus(200);
     var newmessage = new Message(req.body); 
-    // console.log("newMessage: ", newmessage); 
+    console.log("newMessage: ", newmessage); 
     newmessage.save(function(err, post) { 
       if (err) return console.error(err);
       console.log("posted message: ", post);

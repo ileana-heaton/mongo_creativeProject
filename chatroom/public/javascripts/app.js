@@ -1,12 +1,28 @@
 /*global $*/
+/*global localStorage*/
 
+var username = localStorage.getItem("username");
+if(username == null) {
+  username="";
+}
+// username = "";  
 
 $(document).ready(function() {
-  
-  function refresh(){
-    // $("#chatBox").ready(function(e) {
-    // window.setInterval(function(){
-      /// call your function here
+  if(username.length==0){
+    username = prompt("Please enter your username:", "");
+    if (username == null) {
+        username = ""
+        console.log("no username entered");
+    //     txt = "User cancelled the prompt.";
+    } 
+    else {
+        console.log("username entered: ", username);
+        localStorage.setItem("username", username);
+    //     txt = "Hello " + person + "! How are you today?";
+    }
+  }
+   
+ function refresh(){
       var URL = "messages";
       $.getJSON(URL, function(data) {
         console.log(data);
@@ -19,9 +35,10 @@ $(document).ready(function() {
         // console.log("everything: ", everything);
         $("#chatBox").html(everything);
         $('#chatBox').scrollTop($('#chatBox')[0].scrollHeight);
+        // if(username.length){
+        //   $("#Username").val(username);
+        // }
       });
-    // }, 5000);
-  // });
   }
 
   $("#chatBox").ready(function(e) {
@@ -31,40 +48,70 @@ $(document).ready(function() {
     }, 1000);
   });
   
-  $("#sendButton").click(function(e) {
-      if($("#Message").val().length){
-        var myobj = { Username: $("#Username").val(), Message: $("#Message").val() };
-        var jobj = JSON.stringify(myobj);
-        // $("#json").text(jobj);
-        var url = "messages";
-        $.ajax({
-            url: url,
-            type: "POST",
-            data: jobj,
-            contentType: "application/json; charset=utf-8",
-            success: function(data, textStatus) {
-                $("#Message").val("");
-                // e.preventDefault();   
-            }
-        });
-      }
-    });
+  // $("#Username").keyup(function(){
+  //   //save username here
+  //   username = $("#Username").val();
+  //   // console.log($("#Username").val());
+  // });
   
-  $("#deleteComments").click(function() {
-    var url = "comment";
-    $.ajax({
-        url: url,
-        type: "DELETE",
-        // data: jobj,
-        // contentType: "application/json; charset=utf-8",
-        success: function(data, textStatus) {
-            // $("#done").html(textStatus);
-            console.log("delete worked! (comments.js)");
-            $("#comments").html("");
-            $("#json").text("");
-        }
-    });
+  $("#newUsername").click(function(e) {
+    username = prompt("Please enter a new username:", "");
+    if (username == null) {
+        username = ""
+        console.log("no username entered");
+    //     txt = "User cancelled the prompt.";
+    } 
+    else {
+        console.log("username entered: ", username);
+        localStorage.setItem("username", username);
+    //     txt = "Hello " + person + "! How are you today?";
+    }
   });
+
+  
+  $("#sendButton").click(function(e) {
+    if(username.length==0){
+      // window.alert("Please enter a username!");
+      username = prompt("Please enter your username:", "");
+      e.preventDefault();
+      return;
+    }
+    if($("#Message").val().length){
+      var myobj = { Username: username, Message: $("#Message").val() };
+      // var myobj = { Username: $scope.username, Message: $("#Message").val() };
+      var jobj = JSON.stringify(myobj);
+      console.log("newmessage:", jobj);
+      // $("#json").text(jobj);
+      var url = "messages";
+      $.ajax({
+          url: url,
+          type: "POST",
+          data: jobj,
+          contentType: "application/json; charset=utf-8",
+          success: function(data, textStatus) {
+              $("#Message").val("");
+              console.log("sent message worked");
+              e.preventDefault();   
+          }
+      });
+    }
+  });
+  
+  // $("#deleteComments").click(function() {
+  //   var url = "comment";
+  //   $.ajax({
+  //       url: url,
+  //       type: "DELETE",
+  //       // data: jobj,
+  //       // contentType: "application/json; charset=utf-8",
+  //       success: function(data, textStatus) {
+  //           // $("#done").html(textStatus);
+  //           console.log("delete worked! (comments.js)");
+  //           $("#comments").html("");
+  //           $("#json").text("");
+  //       }
+  //   });
+  // });
   
 });
 
